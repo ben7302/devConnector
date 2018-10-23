@@ -4,6 +4,7 @@ const gravatar = require("gravatar");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const _ = require("lodash");
+const passport = require("passport");
 // Load Input Validation
 
 // Load User model
@@ -22,8 +23,8 @@ router.post("/register", (req, res) => {
 
   User.findOne({ email: req.body.email }).then(user => {
     if (user) {
-      errors.email = "Email already exists";
-      return res.status(400).json(errors);
+      errorsEmail = "Email already exists";
+      return res.status(400).json("errorsEmail");
     } else {
       const avatar = gravatar.url(req.body.email, {
         s: "200", // Size
@@ -40,7 +41,8 @@ router.post("/register", (req, res) => {
 
       bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
-          if (err) throw err;
+          console.log(err);
+
           newUser.password = hash;
           newUser
             .save()
@@ -61,17 +63,25 @@ router.post("/login", (req, res) => {
       bcrypt.compare(password, user.password).then(isMatch => {
         if (!isMatch)
           return res.status(400).json({ password: "invalid password" });
-        const payload = { name: user.name, email: user.email };
+        const payload = { id: user._id, name: user.name, email: user.email };
         jwt.sign(payload, "my_secret", { expiresIn: 1000 }, (err, token) => {
           return res.json({
             success: true,
-            token: `bearer ${token}`
+            token: `Bearer ${token}`
           });
         });
       });
     }
   });
 });
+
+router.get(
+  "/current",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    res.json({ msg: "success" });
+  }
+);
 
 // @route   GET api/users/login
 // @desc    Login User / Returning JWT Token
