@@ -1,12 +1,8 @@
 import React, { Component } from "react";
 import classnames from "classnames";
 
-
-
 const axios = require("axios");
-const qs = require("qs");
-
-
+// const qs = require("qs");
 
 // const axios1 = axios.create({
 //   baseURL: "http://localhost:5000",
@@ -88,8 +84,7 @@ export default class Register extends Component {
                     onChange={this.onChange}
                     required
                   />
-                  { (<div className="invalid-feedback">{errors.name}</div>)}
-
+                  {<div className="invalid-feedback">{errors.name}</div>}
                 </div>
                 <div className="form-group">
                   <input
@@ -102,7 +97,7 @@ export default class Register extends Component {
                     value={this.state.email}
                     onChange={this.onChange}
                   />
-                   { (<div className="invalid-feedback">{errors.email}</div>)}
+                  {<div className="invalid-feedback">{errors.email}</div>}
                   <small className="form-text text-muted">
                     This site uses Gravatar so if you want a profile image, use
                     a Gravatar email
@@ -119,7 +114,7 @@ export default class Register extends Component {
                     value={this.state.password}
                     onChange={this.onChange}
                   />
-                   { (<div className="invalid-feedback">{errors.password}</div>)}
+                  {<div className="invalid-feedback">{errors.password}</div>}
                 </div>
                 <div className="form-group">
                   <input
@@ -132,7 +127,7 @@ export default class Register extends Component {
                     value={this.state.password2}
                     onChange={this.onChange}
                   />
-                   { (<div className="invalid-feedback">{errors.password2}</div>)}
+                  {<div className="invalid-feedback">{errors.password2}</div>}
                 </div>
                 <input type="submit" className="btn btn-info btn-block mt-4" />
               </form>
