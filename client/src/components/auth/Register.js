@@ -1,15 +1,18 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import classnames from "classnames";
+// import axios from "axios";
 
-const axios = require("axios");
+import { connect } from "react-redux";
+import { registerUser } from "../../actions/authActions";
+
 // const qs = require("qs");
 
 // const axios1 = axios.create({
 //   baseURL: "http://localhost:5000",
 //   headers: { "Content-Type": "application/json" }
 // });
-
-export default class Register extends Component {
+class Register extends Component {
   constructor() {
     super();
     this.state = {
@@ -36,17 +39,16 @@ export default class Register extends Component {
       password: this.state.password,
       password2: this.state.password2
     };
+
+    this.props.registerUser(newUser);
     // const user = JSON.stringify(newUser)
     // console.log(qs.stringify(newUser));
 
-    axios
-      .post("api/users/register", newUser, {
-        // headers: {
-        //   "Content-Type": "application/x-www-form-urlencoded"
-        // }
-      })
-      .then(res => console.log(res.data))
-      .catch(err => this.setState({ errors: err.response.data }));
+    // axios
+    // .post("api/users/register", newUser, {})
+    // .then(res => console.log(res.data))
+    // .catch(err => this.setState({ errors: err.response.data }));
+
     // axios.post('http://localhost:5000/api/users/register', newUser,
     // { 'content-Type': 'application/json' }
     // );
@@ -62,8 +64,10 @@ export default class Register extends Component {
   }
   render() {
     const { errors } = this.state;
+    const { user } = this.props.auth;
     return (
       <div className="register">
+        {user ? user.name : null}
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
@@ -138,3 +142,18 @@ export default class Register extends Component {
     );
   }
 }
+
+Register.prototypes = {
+  registerUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
+
+
+
+const mapStateToProps =  state => ({
+  auth: state.auth
+})
+export default connect(
+  mapStateToProps,
+  { registerUser }
+)(Register);
