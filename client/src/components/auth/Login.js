@@ -1,10 +1,13 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { loginUser } from "../../actions/authActions";
 
 class Login extends Component {
   constructor() {
     super();
     this.state = {
-      email:  "", 
+      email: "",
       password: ""
     };
     this.onChange = this.onChange.bind(this);
