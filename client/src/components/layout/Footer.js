@@ -1,10 +1,12 @@
- import React, { Component } from 'react'
- class Footer extends Component {
-   render() {
-     return (
-      <footer className="bg-dark text-white mt-50 p-50 text-center">Copyright &copy; {new Date().getFullYear()}</footer>
-     )
-   }
- }
+import React from "react";
+
+export default () => {
+  return (
+    <footer className="bg-dark text-white mt-5 p-4 text-center">
+      Copyright &copy; {new Date().getFullYear()} DevConnector
+    </footer>
+  );
+};
+
  
- export default Footer; 
+ 

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
- 
+
 class Navbar extends Component {
   render() {
     return (
@@ -24,7 +24,7 @@ class Navbar extends Component {
                 <Link className="nav-link" to="/profiles">
                   {" "}
                   Developers
-                </Link >
+                </Link>
               </li>
             </ul>
 
